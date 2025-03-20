@@ -89,9 +89,9 @@ class BaseManager:
             return manager_method
 
         new_methods = {}
-        for name, method in inspect.getmembers(
-            queryset_class, predicate=inspect.isfunction
-        ):
+        # Originally inspect.isfunction instead of callable
+        # Cython functions aren't considered functions by isfunction
+        for name, method in inspect.getmembers(queryset_class, predicate=callable):
             # Only copy missing methods.
             if hasattr(cls, name):
                 continue
