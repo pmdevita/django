@@ -6,7 +6,9 @@ from setuptools import setup
 ext_modules = None
 
 if platform.python_implementation() == "CPython":
-    ext_modules = cythonize(["django/db/models/query.py"])
+    ext_modules = cythonize(
+        ["django/db/models/query.py", "django/db/models/sql/compiler.py"]
+    )
 
 setup(
     name="Django",
